@@ -17,7 +17,8 @@ app.get('/', (req, res) => {
   res.send('<h1>Store API</h1><a href="/api/v1/products">Products route</a>');
 });
 
-// app.use('/api/v1/products', products);
+const productsRouter = require('./routes/products');
+app.use('/api/v1/products', productsRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
