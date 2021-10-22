@@ -1,4 +1,6 @@
 require('dotenv').config();
+const connecToDB = require('./db/connect');
+const products = require('./');
 // Async errors
 
 const express = require('express');
@@ -15,14 +17,18 @@ app.get('/', (req, res) => {
   res.send('<h1>Store API</h1><a href="/api/v1/products">Products route</a>');
 });
 
+// app.use('/api/v1/products', products);
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
-
+const mongoURI = process.env.MONGO_URI;
 const startApp = async () => {
   try {
     // connectToDB with await
+    await connecToDB(mongoURI);
+    console.log('Connection to DB successful!');
     app.listen(port, () => {
       console.log(`Listening at http://localhost:${port}`);
     });
