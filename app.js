@@ -1,6 +1,7 @@
 require('dotenv').config();
 const connecToDB = require('./db/connect');
 const products = require('./');
+
 // Async errors
 require('express-async-errors');
 const express = require('express');
