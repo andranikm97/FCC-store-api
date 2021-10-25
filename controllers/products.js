@@ -6,7 +6,16 @@ const getAllProductsStatic = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
-  res.status(200).json({ msg: 'products testing route' });
+  const { featured } = req.query;
+  const queryObject = {};
+
+  if (featured) {
+    queryObject.featured = featured === 'true';
+  }
+
+  console.log(queryObject);
+  const products = await Product.find(queryObject);
+  res.status(200).json({ data: products, nbHits: products.length });
 };
 
 module.exports = {
